@@ -67,9 +67,4 @@ int main()
 	cout << "Given linked list\n";
 	ll.print();
 
-	ll.reverse();
-
-	cout << "\nReversed linked list \n";
-	ll.print();
-	return 0;
 }
