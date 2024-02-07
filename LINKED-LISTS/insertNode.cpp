@@ -1,31 +1,75 @@
-// Given a node as prev_node, insert a new node 
-// after the given node
-void insertAfter(Node* prev_node, int new_data)
-{
-	// Check if the given prev_node is NULL
-	if (prev_node == NULL) {
-		cout << "the given previous node cannot be NULL";
-		return;
+// Iterative C++ program to reverse a linked list
+#include <bits/stdc++.h>
+using namespace std;
+
+/* Link list node */
+struct Node {
+	int data;
+	struct Node* next;
+	Node(int data)
+	{
+		this->data = data;
+		next = NULL;
+	}
+};
+
+struct LinkedList {
+	Node* head;
+	LinkedList() { head = NULL; }
+
+	/* Function to reverse the linked list */
+	void reverse()
+	{
+		// Initialize current, previous and next pointers
+		Node* current = head;
+		Node *prev = NULL, *next = NULL;
+
+		while (current != NULL) {
+			// Store next
+			next = current->next;
+			// Reverse current node's pointer
+			current->next = prev;
+			// Move pointers one position ahead.
+			prev = current;
+			current = next;
+		}
+		head = prev;
 	}
 
-	// 1. allocate new node
-	Node* new_node = new Node();
+	/* Function to print linked list */
+	void print()
+	{
+		struct Node* temp = head;
+		while (temp != NULL) {
+			cout << temp->data << " ";
+			temp = temp->next;
+		}
+	}
 
-	// 2. put in the data
-	new_node->data = new_data;
+	void push(int data)
+	{
+		Node* temp = new Node(data);
+		temp->next = head;
+		head = temp;
+	}
+};
 
-	// 3. Make next of new node as next of prev_node
-	new_node->next = prev_node->next;
+/* Driver code*/
+int main()
+{
+	/* Start with the empty list */
+	LinkedList ll;
+	ll.push(20);
+	ll.push(4);
+	ll.push(15);
+	ll.push(85);
 
-	// 4. Make the next of prev_node as new_node
-	prev_node->next = new_node;
+	cout << "Given linked list\n";
+	ll.print();
 
-	// 5. Make prev_node as previous of new_node
-	new_node->prev = prev_node;
+	ll.reverse();
 
-	// 6. Change previous of new_node's next node
-	if (new_node->next != NULL)
-		new_node->next->prev = new_node;
+	cout << "\nReversed linked list \n";
+	ll.print();
+	return 0;
 }
-
-// This code is contributed by shivanisinghss2110.
